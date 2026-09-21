@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Para ti 🌻✨</title>
+  <title>Para Karina (Mi Chispita 💥) 🌻✨</title>
 
   <!-- Fuentes Elegantes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
       --gold-dark: #ca8a04;
       --bg-dark: #030712;
       --glass-bg: rgba(15, 23, 42, 0.95);
-      --glass-border: rgba(250, 204, 21, 0.35);
+      --glass-border: rgba(250, 204, 21, 0.4);
     }
 
     * {
@@ -52,8 +52,113 @@
       pointer-events: none;
       width: 100%;
       height: 100%;
+      will-change: transform;
     }
 
+    /* ==========================================
+       1. SOBRE INICIAL CON SELLO DE CERA 3D
+       ========================================== */
+    .envelope-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1500;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(3, 7, 18, 0.98);
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      perspective: 1000px;
+      padding: 20px;
+    }
+
+    .envelope-screen.opened {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 310px;
+      height: 210px;
+      background: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(250, 204, 21, 0.25);
+      border: 1px solid var(--glass-border);
+      perspective: 1000px;
+      cursor: pointer;
+      transform-style: preserve-3d;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 155px solid transparent;
+      border-right: 155px solid transparent;
+      border-top: 120px solid #334155;
+      transform-origin: top;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 4;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    }
+
+    .envelope-flap.open {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-body {
+      position: absolute;
+      inset: 0;
+      border-left: 155px solid #0f172a;
+      border-right: 155px solid #0f172a;
+      border-bottom: 110px solid #1e293b;
+      border-radius: 16px;
+      z-index: 3;
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      background: radial-gradient(circle, #fde047 0%, #ca8a04 70%, #854d0e 100%);
+      border-radius: 50%;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.5), 0 0 25px rgba(250, 204, 21, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      z-index: 5;
+      cursor: pointer;
+      transition: transform 0.3s ease, opacity 0.4s ease;
+      animation: pulseSeal 2s infinite;
+    }
+
+    @keyframes pulseSeal {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
+      50% { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 0 35px rgba(250, 204, 21, 0.8); }
+    }
+
+    .wax-seal-text {
+      margin-top: 35px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: var(--gold-primary);
+      text-align: center;
+      text-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
+      animation: fadeInDown 1s ease;
+    }
+
+    /* ==========================================
+       2. VISTA PRINCIPAL & TARJETA
+       ========================================== */
     .viewport {
       position: relative;
       z-index: 10;
@@ -63,27 +168,44 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      perspective: 1000px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    }
+
+    .viewport.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .title-banner {
       text-align: center;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
       animation: fadeInDown 0.8s ease;
     }
 
     .title-banner h1 {
       font-family: 'Dancing Script', cursive;
       font-size: clamp(2.6rem, 8vw, 3.8rem);
-      color: var(--gold-primary);
+      background: linear-gradient(90deg, #fef08a, #facc15, #ffffff, #facc15, #fef08a);
+      background-size: 200% auto;
+      color: transparent;
+      -webkit-background-clip: text;
+      animation: shimmerText 4s linear infinite;
       line-height: 1.1;
-      text-shadow: 0 0 15px rgba(250, 204, 21, 0.3);
+      filter: drop-shadow(0 0 12px rgba(250, 204, 21, 0.4));
+    }
+
+    @keyframes shimmerText {
+      to { background-position: 200% center; }
     }
 
     .title-banner p {
       font-size: 0.85rem;
       color: #94a3b8;
       font-weight: 300;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       margin-top: 6px;
       text-transform: uppercase;
     }
@@ -95,8 +217,10 @@
       height: 450px;
       border-radius: 28px;
       padding: 2px;
-      background: linear-gradient(135deg, #fef08a, #ca8a04);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+      background: linear-gradient(135deg, #fef08a, #ca8a04, #fde047);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(250, 204, 21, 0.25);
+      transition: transform 0.15s ease-out;
+      transform-style: preserve-3d;
       will-change: transform;
     }
 
@@ -107,6 +231,24 @@
       background: #0f172a;
       border-radius: 26px;
       overflow: hidden;
+    }
+
+    .scratch-indicator {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--glass-border);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--gold-primary);
+      backdrop-filter: blur(6px);
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      font-weight: 600;
     }
 
     .card-secret {
@@ -122,14 +264,15 @@
     }
 
     .secret-icon {
-      font-size: 3.2rem;
+      font-size: 3.5rem;
       margin-bottom: 12px;
       animation: floatHeart 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.5));
     }
 
     @keyframes floatHeart {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-10px) scale(1.05); }
     }
 
     .secret-title {
@@ -155,14 +298,14 @@
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.3);
+      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       animation: pulseBtn 2s infinite;
     }
 
     @keyframes pulseBtn {
       0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.6); }
-      70% { box-shadow: 0 0 0 14px rgba(250, 204, 21, 0); }
+      70% { box-shadow: 0 0 0 16px rgba(250, 204, 21, 0); }
       100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
     }
 
@@ -195,6 +338,7 @@
       gap: 10px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
       cursor: pointer;
+      backdrop-filter: blur(8px);
     }
 
     .music-title {
@@ -232,11 +376,14 @@
       100% { height: 14px; }
     }
 
+    /* ==========================================
+       3. MODAL DE CARTA Y POLAROID
+       ========================================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       background: rgba(3, 7, 18, 0.96);
-      z-index: 200;
+      z-index: 2000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -244,6 +391,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease;
+      backdrop-filter: blur(10px);
     }
 
     .modal-backdrop.active {
@@ -254,7 +402,7 @@
     #modal-flower-box {
       position: absolute;
       inset: 0;
-      z-index: 205;
+      z-index: 2005;
       pointer-events: none;
       overflow: hidden;
     }
@@ -271,8 +419,8 @@
         transform: translateY(105vh) rotate(0deg);
         opacity: 0;
       }
-      20% { opacity: 0.85; }
-      80% { opacity: 0.85; }
+      20% { opacity: 0.9; }
+      80% { opacity: 0.9; }
       100% {
         transform: translateY(-10vh) rotate(180deg);
         opacity: 0;
@@ -281,7 +429,7 @@
 
     .modal-box {
       position: relative;
-      z-index: 210;
+      z-index: 2010;
       background: #0f172a;
       border: 1px solid var(--glass-border);
       padding: 24px 20px;
@@ -290,13 +438,13 @@
       width: 100%;
       max-height: 80vh;
       overflow-y: auto;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-      transform: scale(0.95);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(250, 204, 21, 0.15);
+      transform: scale(0.95) translate3d(0,0,0);
       transition: transform 0.3s ease;
     }
 
     .modal-backdrop.active .modal-box {
-      transform: scale(1);
+      transform: scale(1) translate3d(0,0,0);
     }
 
     .polaroid-frame {
@@ -308,6 +456,11 @@
       max-width: 180px;
       text-align: center;
       box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid-frame:hover {
+      transform: rotate(0deg) scale(1.03);
     }
 
     .polaroid-img {
@@ -321,14 +474,14 @@
     .polaroid-caption {
       font-family: 'Caveat', cursive;
       color: #334155;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       margin-top: 4px;
       font-weight: 700;
     }
 
     .typewriter-text {
       font-family: 'Caveat', cursive;
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       color: #f1f5f9;
       line-height: 1.5;
       text-align: left;
@@ -337,6 +490,7 @@
     .highlight-gold {
       color: var(--gold-primary);
       font-weight: 700;
+      text-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
     }
 
     .typewriter-cursor {
@@ -367,6 +521,16 @@
   <!-- Audio MP3 Local -->
   <audio id="bg-music" src="cancion.mp3" preload="auto" loop></audio>
 
+  <!-- Pantalla Inicial: Sobre Real con Sello de Cera 3D -->
+  <div id="envelopeScreen" class="envelope-screen">
+    <div class="envelope-wrapper" id="envelopeWrapper">
+      <div class="envelope-flap" id="envelopeFlap"></div>
+      <div class="envelope-body"></div>
+      <div class="wax-seal" id="waxSeal">🌻</div>
+    </div>
+    <div class="wax-seal-text">Toca el sello de cera para abrir tu regalo, Karina ✉️✨</div>
+  </div>
+
   <!-- Reproductor de Música UI -->
   <div id="music-player" class="music-player-card">
     <div class="visualizer-bars" id="visualizer">
@@ -382,22 +546,24 @@
 
   <canvas id="bg-canvas"></canvas>
 
-  <div class="viewport">
+  <div class="viewport" id="mainViewport">
     <div class="title-banner">
-      <h1>¡Una Sorpresa Para Ti! ✨</h1>
-      <p>Rasca la tarjeta dorada para descubrirla 🌻</p>
+      <h1>¡Para Karina! 💥✨</h1>
+      <p>Rasca la tarjeta dorada, mi chispita 🌻</p>
     </div>
 
     <div class="card-container" id="cardContainer">
       <div class="card-body">
         
+        <div id="scratchProgress" class="scratch-indicator">Progreso: <span>0%</span></div>
+
         <div class="card-secret">
-          <div class="secret-icon">🌻✨💛</div>
-          <h2 class="secret-title">¡Feliz día de las flores amarillas!</h2>
+          <div class="secret-icon">🌻💥💛</div>
+          <h2 class="secret-title">¡Para mi chispita Karina!</h2>
           <p class="secret-msg">
-            Un detalle único preparado especialmente para ti, porque iluminas todo a tu alrededor. ✨
+            Un detalle preparado con mucho cariño para ti, Karina. Porque con tu presencia iluminas todo alrededor. ✨
           </p>
-          <button id="btn-open-modal" class="wax-seal-btn">✉️ Abrir carta especial</button>
+          <button id="btn-open-modal" class="wax-seal-btn">✉️ Abrir tu carta especial</button>
         </div>
 
         <canvas id="scratch-canvas"></canvas>
@@ -410,11 +576,11 @@
     <div id="modal-flower-box"></div>
 
     <div class="modal-box" id="modalBox">
-      <h2 style="color: var(--gold-primary); font-family: 'Dancing Script', cursive; font-size: 2.3rem; margin-bottom: 8px; text-align: center;">Para ti 💛</h2>
+      <h2 style="color: var(--gold-primary); font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 8px; text-align: center;">Para Karina (Mi Chispita 💥) 💛</h2>
       
       <div class="polaroid-frame">
         <img src="https://images.unsplash.com/photo-1597848212624-a19eb35e2651?q=80&w=400&auto=format&fit=crop" alt="Flores Amarillas" class="polaroid-img">
-        <div class="polaroid-caption">Siempre brillas ✨</div>
+        <div class="polaroid-caption">Karina, siempre brillas 💥✨</div>
       </div>
 
       <div class="typewriter-text">
@@ -429,29 +595,16 @@
 
   <script>
     /* ==========================================
-       1. AUDIO OPTIMIZADO Y DESBLOQUEADO
+       1. AUDIO CON SINTETIZADOR WEB AUDIO API
        ========================================== */
     let audioCtx = null;
     let lastAudioTime = 0;
-    let bgMusicUnlocked = false;
+    let synthNotesInterval = null;
 
     const bgMusic = document.getElementById('bg-music');
     const musicPlayer = document.getElementById('music-player');
     const musicStatus = document.getElementById('music-status');
     let isPlaying = false;
-
-    // Función crucial: Desbloquea el reproductor en el primer toque del usuario
-    function unlockMusicPermissions() {
-      if (!bgMusicUnlocked) {
-        bgMusic.play().then(() => {
-          if (!isPlaying) {
-            bgMusic.pause();
-            bgMusic.currentTime = 0;
-          }
-          bgMusicUnlocked = true;
-        }).catch(() => {});
-      }
-    }
 
     function initAudioContext() {
       if (!audioCtx) {
@@ -460,8 +613,79 @@
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
-      unlockMusicPermissions();
     }
+
+    function playMagicChime() {
+      if (!audioCtx) return;
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.08);
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime + idx * 0.08);
+        gain.gain.linearRampToValueAtTime(0.02, audioCtx.currentTime + idx * 0.08 + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + idx * 0.08 + 0.6);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(audioCtx.currentTime + idx * 0.08);
+        osc.stop(audioCtx.currentTime + idx * 0.08 + 0.6);
+      });
+    }
+
+    function playSyntheticChimeNote() {
+      if (!audioCtx || !isPlaying) return;
+      const notes = [261.63, 329.63, 392.00, 440.00, 523.25, 659.25];
+      const freq = notes[Math.floor(Math.random() * notes.length)];
+      
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+      
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 1.2);
+    }
+
+    function startMusicAutomatically() {
+      initAudioContext();
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        musicPlayer.classList.add('playing');
+        musicStatus.textContent = 'Sonando 🎵';
+      }).catch(() => {
+        isPlaying = true;
+        musicPlayer.classList.add('playing');
+        musicStatus.textContent = 'Modo ambiente 🎵';
+        if (!synthNotesInterval) {
+          synthNotesInterval = setInterval(playSyntheticChimeNote, 800);
+        }
+      });
+    }
+
+    function toggleMusicManual() {
+      initAudioContext();
+      if (isPlaying) {
+        bgMusic.pause();
+        if (synthNotesInterval) {
+          clearInterval(synthNotesInterval);
+          synthNotesInterval = null;
+        }
+        isPlaying = false;
+        musicPlayer.classList.remove('playing');
+        musicStatus.textContent = 'Pausado';
+      } else {
+        startMusicAutomatically();
+      }
+    }
+
+    musicPlayer.addEventListener('click', toggleMusicManual);
 
     function playScratchSound() {
       const now = Date.now();
@@ -469,7 +693,7 @@
       lastAudioTime = now;
 
       if (!audioCtx) return;
-      const bufferSize = audioCtx.sampleRate * 0.03; 
+      const bufferSize = audioCtx.sampleRate * 0.02; 
       const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
@@ -478,7 +702,6 @@
 
       const noise = audioCtx.createBufferSource();
       noise.buffer = buffer;
-
       const gain = audioCtx.createGain();
       gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
 
@@ -497,8 +720,7 @@
       const gain = audioCtx.createGain();
       
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(350, audioCtx.currentTime);
-      
+      osc.frequency.setValueAtTime(380, audioCtx.currentTime);
       gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.02);
 
@@ -513,8 +735,8 @@
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(580, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
       osc.connect(gain);
       gain.connect(audioCtx.destination);
@@ -523,49 +745,57 @@
     }
 
     /* ==========================================
-       2. CONTROL DE MÚSICA DE FONDO
+       2. INTERACCIÓN DEL SOBRE INICIAL
        ========================================== */
-    function startMusicAutomatically() {
-      bgMusic.play().then(() => {
-        isPlaying = true;
-        musicPlayer.classList.add('playing');
-        musicStatus.textContent = 'Sonando 🎵';
-      }).catch((err) => {
-        console.log("Incapaz de reproducir automáticamente:", err);
-      });
-    }
+    const envelopeScreen = document.getElementById('envelopeScreen');
+    const envelopeFlap = document.getElementById('envelopeFlap');
+    const waxSeal = document.getElementById('waxSeal');
+    const mainViewport = document.getElementById('mainViewport');
 
-    function toggleMusicManual() {
+    function openEnvelope() {
       initAudioContext();
-      if (isPlaying) {
-        bgMusic.pause();
-        isPlaying = false;
-        musicPlayer.classList.remove('playing');
-        musicStatus.textContent = 'Pausado';
-      } else {
-        startMusicAutomatically();
-      }
+      playMagicChime();
+
+      // Ruptura de sello y fuegos artificiales
+      const rect = waxSeal.getBoundingClientRect();
+      spawnFlowerFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2, 25);
+      waxSeal.style.opacity = '0';
+
+      // Apertura 3D de solapa
+      setTimeout(() => {
+        envelopeFlap.classList.add('open');
+      }, 200);
+
+      // Transición al regalo principal
+      setTimeout(() => {
+        envelopeScreen.classList.add('opened');
+        mainViewport.classList.add('visible');
+      }, 700);
     }
 
-    musicPlayer.addEventListener('click', toggleMusicManual);
+    waxSeal.addEventListener('click', openEnvelope);
+    document.getElementById('envelopeWrapper').addEventListener('click', openEnvelope);
 
     /* ==========================================
-       3. FONDO Y FUEGOS ARTIFICIALES
+       3. CANVAS CON RASTRO MÁGICO (TRAIL)
        ========================================== */
     const bgCanvas = document.getElementById('bg-canvas');
     const bgCtx = bgCanvas.getContext('2d');
     let stars = [];
     let particles = [];
+    let petals = [];
+    let trail = [];
 
     function resizeBg() {
       bgCanvas.width = window.innerWidth;
       bgCanvas.height = window.innerHeight;
       initStars();
+      initPetals();
     }
 
     function initStars() {
       stars = [];
-      for (let i = 0; i < 35; i++) {
+      for (let i = 0; i < 30; i++) {
         stars.push({
           x: Math.random() * bgCanvas.width,
           y: Math.random() * bgCanvas.height,
@@ -576,18 +806,47 @@
       }
     }
 
-    function spawnFlowerFireworks(x, y, count = 25) {
-      const floralEmojis = ['🌻', '🌼', '💛', '✨'];
+    function initPetals() {
+      petals = [];
+      for (let i = 0; i < 10; i++) {
+        petals.push({
+          x: Math.random() * bgCanvas.width,
+          y: Math.random() * bgCanvas.height,
+          size: Math.random() * 10 + 10,
+          speedY: Math.random() * 0.7 + 0.3,
+          speedX: Math.random() * 0.4 - 0.2,
+          rotation: Math.random() * 360,
+          rotSpeed: Math.random() * 1.5 - 0.75,
+          emoji: ['🌻', '💛', '✨'][Math.floor(Math.random() * 3)]
+        });
+      }
+    }
+
+    function addTrailSparkle(x, y) {
+      if (trail.length > 20) trail.shift();
+      trail.push({
+        x: x,
+        y: y,
+        size: Math.random() * 10 + 10,
+        alpha: 1,
+        emoji: ['✨', '🌟', '💛'][Math.floor(Math.random() * 3)]
+      });
+    }
+
+    function spawnFlowerFireworks(x, y, count = 18) {
+      const floralEmojis = ['🌻', '🌼', '💥', '✨', '💛'];
       const posX = x || bgCanvas.width / 2;
       const posY = y || bgCanvas.height / 2;
+
+      if (particles.length > 40) particles.splice(0, 15);
 
       for (let i = 0; i < count; i++) {
         particles.push({
           x: posX,
           y: posY,
-          vx: (Math.random() - 0.5) * 14,
-          vy: (Math.random() - 0.5) * 14,
-          size: Math.random() * 18 + 16,
+          vx: (Math.random() - 0.5) * 12,
+          vy: (Math.random() - 0.5) * 12,
+          size: Math.random() * 16 + 14,
           emoji: floralEmojis[Math.floor(Math.random() * floralEmojis.length)],
           alpha: 1
         });
@@ -597,6 +856,7 @@
     function renderBg() {
       bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
 
+      // Estrellas
       stars.forEach(s => {
         s.alpha += s.speed;
         if (s.alpha > 1 || s.alpha < 0.2) s.speed = -s.speed;
@@ -606,12 +866,46 @@
         bgCtx.fill();
       });
 
+      // Rastro de chispas
+      for (let i = trail.length - 1; i >= 0; i--) {
+        const t = trail[i];
+        t.alpha -= 0.04;
+        if (t.alpha <= 0) {
+          trail.splice(i, 1);
+        } else {
+          bgCtx.globalAlpha = t.alpha;
+          bgCtx.font = `${t.size}px sans-serif`;
+          bgCtx.fillText(t.emoji, t.x, t.y);
+          bgCtx.globalAlpha = 1;
+        }
+      }
+
+      // Pétalos
+      petals.forEach(p => {
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.01) + p.speedX;
+        p.rotation += p.rotSpeed;
+
+        if (p.y > bgCanvas.height + 20) {
+          p.y = -20;
+          p.x = Math.random() * bgCanvas.width;
+        }
+
+        bgCtx.save();
+        bgCtx.translate(p.x, p.y);
+        bgCtx.rotate((p.rotation * Math.PI) / 180);
+        bgCtx.font = `${p.size}px sans-serif`;
+        bgCtx.fillText(p.emoji, -p.size / 2, p.size / 2);
+        bgCtx.restore();
+      });
+
+      // Fuegos artificiales
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
         p.vy += 0.15;
-        p.alpha -= 0.018;
+        p.alpha -= 0.022;
 
         if (p.alpha <= 0) {
           particles.splice(i, 1);
@@ -630,24 +924,74 @@
     resizeBg();
     renderBg();
 
+    let lastTrailTime = 0;
+    window.addEventListener('pointermove', (e) => {
+      const now = Date.now();
+      if (now - lastTrailTime > 40) {
+        addTrailSparkle(e.clientX, e.clientY);
+        lastTrailTime = now;
+      }
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('#scratch-canvas') || e.target.closest('#btn-open-modal') || e.target.closest('#modalBox') || e.target.closest('#envelopeScreen')) return;
+      spawnFlowerFireworks(e.clientX, e.clientY, 6);
+    });
+
     /* ==========================================
-       4. CANVAS RASPABLE CON DISPARADOR DE AUDIO
+       4. EFECTO PARALLAX 3D
+       ========================================== */
+    const cardContainer = document.getElementById('cardContainer');
+    let ticking3D = false;
+
+    function handleMove(clientX, clientY) {
+      const rect = cardContainer.getBoundingClientRect();
+      const x = clientX - rect.left - rect.width / 2;
+      const y = clientY - rect.top - rect.height / 2;
+
+      const rotX = (y / (rect.height / 2)) * -10;
+      const rotY = (x / (rect.width / 2)) * 10;
+
+      cardContainer.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translate3d(0,0,0)`;
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      if (!ticking3D) {
+        window.requestAnimationFrame(() => {
+          handleMove(e.clientX, e.clientY);
+          ticking3D = false;
+        });
+        ticking3D = true;
+      }
+    });
+
+    window.addEventListener('mouseleave', () => {
+      cardContainer.style.transform = 'rotateX(0deg) rotateY(0deg) translate3d(0,0,0)';
+    });
+
+    /* ==========================================
+       5. CANVAS RASPABLE CON INDICADOR DE PROGRESO
        ========================================== */
     const scratchCanvas = document.getElementById('scratch-canvas');
     const scratchCtx = scratchCanvas.getContext('2d');
-    const cardContainer = document.getElementById('cardContainer');
+    const scratchProgress = document.getElementById('scratchProgress');
 
     let isDrawing = false;
     let lastPos = null;
     let isRevealed = false;
-    let scratchMoveCounter = 0;
+    let scratchStrokesCount = 0;
 
     function initScratchCanvas() {
       const rect = cardContainer.getBoundingClientRect();
       scratchCanvas.width = rect.width;
       scratchCanvas.height = rect.height;
 
-      scratchCtx.fillStyle = '#ca8a04';
+      const grad = scratchCtx.createLinearGradient(0, 0, rect.width, rect.height);
+      grad.addColorStop(0, '#fef08a');
+      grad.addColorStop(0.5, '#ca8a04');
+      grad.addColorStop(1, '#854d0e');
+
+      scratchCtx.fillStyle = grad;
       scratchCtx.fillRect(0, 0, rect.width, rect.height);
 
       scratchCtx.fillStyle = '#3a1a04';
@@ -662,14 +1006,14 @@
       const rect = scratchCanvas.getBoundingClientRect();
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return { x: clientX - rect.left, y: clientY - rect.top };
+      return { x: clientX - rect.left, y: clientY - rect.top, globalX: clientX, globalY: clientY };
     }
 
     function scratchLine(from, to) {
       if (isRevealed) return;
 
       scratchCtx.globalCompositeOperation = 'destination-out';
-      scratchCtx.lineWidth = 50;
+      scratchCtx.lineWidth = 55;
       scratchCtx.lineCap = 'round';
 
       scratchCtx.beginPath();
@@ -679,32 +1023,25 @@
 
       playScratchSound();
 
-      scratchMoveCounter++;
-      if (scratchMoveCounter % 8 === 0) {
-        checkScratchProgress();
-      }
-    }
-
-    function checkScratchProgress() {
-      if (isRevealed) return;
-
-      const imgData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
-      const pixels = imgData.data;
-      let clearCount = 0;
-
-      for (let i = 3; i < pixels.length; i += 60) {
-        if (pixels[i] === 0) clearCount++;
+      if (Math.random() > 0.6) {
+        spawnFlowerFireworks(to.globalX, to.globalY, 1);
       }
 
-      // Al rascar más del 30%:
-      if ((clearCount / (pixels.length / 60)) * 100 > 30) {
+      scratchStrokesCount++;
+      const percent = Math.min(100, Math.floor((scratchStrokesCount / 35) * 100));
+      scratchProgress.querySelector('span').textContent = `${percent}%`;
+
+      if (scratchStrokesCount > 35) {
         isRevealed = true;
         scratchCanvas.style.opacity = '0';
-        setTimeout(() => scratchCanvas.remove(), 600);
+        scratchProgress.style.opacity = '0';
+        setTimeout(() => {
+          scratchCanvas.remove();
+          scratchProgress.remove();
+        }, 600);
         
-        // ¡INICIAR MÚSICA AUTOMÁTICAMENTE AQUÍ!
+        playMagicChime();
         startMusicAutomatically();
-
         spawnFlowerFireworks(window.innerWidth / 2, window.innerHeight / 2, 35);
       }
     }
@@ -743,7 +1080,7 @@
     window.addEventListener('touchend', () => isDrawing = false);
 
     /* ==========================================
-       5. MÁQUINA DE ESCRIBIR Y CARTA
+       6. MÁQUINA DE ESCRIBIR & CARTA OPCIÓN B
        ========================================== */
     const btnOpenModal = document.getElementById('btn-open-modal');
     const btnCloseModal = document.getElementById('btn-close-modal');
@@ -757,17 +1094,15 @@
     let typewriterTimeout = null;
 
     const letterSegments = [
-      { text: "Hay personas que traen ", gold: false },
-      { text: "luz", gold: true },
-      { text: " sin darse cuenta, y tú eres una de ellas. Sé que el camino no siempre ha sido fácil, que has llevado cargas pesadas y que a veces los pensamientos pesan más de la cuenta. Pero tu valentía para seguir sonriendo habla del hermoso corazón que tienes.\n\n", gold: false },
-      { text: "No necesitas demostrar nada ni ser perfecta; tus días grises también merecen ", gold: false },
-      { text: "paciencia, respeto y abrazos", gold: true },
-      { text: ". Estas flores amarillas no son solo un detalle, son un recordatorio de que mereces momentos bonitos, ", gold: false },
-      { text: "paz y un cariño sincero", gold: true },
-      { text: " que jamás duela.\n\n", gold: false },
-      { text: "Me alegra mucho coincidir contigo y estar conociéndote. ", gold: false },
-      { text: "Gracias por dejarme descubrir la increíble persona que eres.", gold: true },
-      { text: " 🌻✨", gold: false }
+      { text: "Para Karina, mi chispita 💥. Tu valentía para seguir sonriendo, incluso cuando los días pesan más de la cuenta, habla de lo ", gold: false },
+      { text: "hermoso que es tu corazón", gold: true },
+      { text: ". No necesitas demostrar nada ni ser perfecta; tus días grises también merecen ", gold: false },
+      { text: "paciencia, abrazos y calma", gold: true },
+      { text: ".\n\nQue estas flores amarillas te recuerden siempre lo mucho que vales y que mereces ", gold: false },
+      { text: "cosas bonitas que jamás duelan", gold: true },
+      { text: ". Gracias por dejarme estar cerca y ", gold: false },
+      { text: "conocer la increíble persona que eres.", gold: true },
+      { text: " 🌻💥✨", gold: false }
     ];
 
     function startOrganicTypewriter(segments) {
@@ -825,28 +1160,15 @@
 
       const flower = document.createElement('div');
       flower.className = 'modal-floating-flower';
-      flower.textContent = ['🌻', '🌼', '💛'][Math.floor(Math.random() * 3)];
+      flower.textContent = ['🌻', '🌼', '💥', '💛', '✨'][Math.floor(Math.random() * 5)];
       flower.style.left = Math.random() * 90 + 'vw';
-      flower.style.fontSize = (Math.random() * 10 + 20) + 'px';
+      flower.style.fontSize = (Math.random() * 10 + 18) + 'px';
 
       modalFlowerBox.appendChild(flower);
       setTimeout(() => flower.remove(), 6000);
     }
 
-    btnOpenModal.addEventListener('click', (e) => {
-      initAudioContext();
-      if (!isPlaying) startMusicAutomatically();
-
-      const rect = e.target.getBoundingClientRect();
-      spawnFlowerFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
-
-      modal.classList.add('active');
-      modalFlowerInterval = setInterval(spawnModalFlower, 800);
-      clearTimeout(typewriterTimeout);
-      startOrganicTypewriter(letterSegments);
-    });
-
-    btnCloseModal.addEventListener('click', () => {
+    function closeModal() {
       playPopSound();
 
       modal.classList.remove('active');
@@ -857,9 +1179,35 @@
       const w = window.innerWidth;
       const h = window.innerHeight;
 
-      spawnFlowerFireworks(w * 0.5, h * 0.4, 30);
-      setTimeout(() => spawnFlowerFireworks(w * 0.25, h * 0.5, 20), 120);
-      setTimeout(() => spawnFlowerFireworks(w * 0.75, h * 0.5, 20), 240);
+      spawnFlowerFireworks(w * 0.5, h * 0.4, 25);
+      setTimeout(() => spawnFlowerFireworks(w * 0.25, h * 0.5, 15), 120);
+      setTimeout(() => spawnFlowerFireworks(w * 0.75, h * 0.5, 15), 240);
+    }
+
+    btnOpenModal.addEventListener('click', (e) => {
+      initAudioContext();
+      playMagicChime();
+      if (!isPlaying) startMusicAutomatically();
+
+      const rect = e.target.getBoundingClientRect();
+      spawnFlowerFireworks(rect.left + rect.width / 2, rect.top + rect.height / 2, 20);
+
+      modal.classList.add('active');
+      modalFlowerInterval = setInterval(spawnModalFlower, 900);
+      clearTimeout(typewriterTimeout);
+      startOrganicTypewriter(letterSegments);
+    });
+
+    btnCloseModal.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
     });
   </script>
 </body>
