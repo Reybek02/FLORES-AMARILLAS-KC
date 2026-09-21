@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para ti 🌻</title>
   
-  <!-- Tipografías de Google Fonts -->
+  <!-- Tipografías elegantes y de alta legibilidad -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --color-amarillo: #ffe033;
-      --brillo-oro: rgba(253, 216, 53, 0.6);
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.18);
+      --color-amarillo: #facc15;
+      --color-oro: #eab308;
+      --bg-card: rgba(15, 23, 42, 0.88);
+      --border-card: rgba(250, 204, 21, 0.3);
     }
 
     * {
@@ -27,13 +27,14 @@
 
     body, html {
       height: 100%;
+      width: 100%;
       overflow: hidden;
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at center, #1a2332 0%, #0d1117 100%);
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
       color: #fff;
     }
 
-    /* Fondo Estrellado */
+    /* CAPA 1: Estrellas de Fondo */
     .stars-container {
       position: fixed;
       inset: 0;
@@ -43,128 +44,150 @@
 
     .star {
       position: absolute;
-      background: #fff;
+      background: #ffffff;
       border-radius: 50%;
       animation: twinkle var(--duration) infinite ease-in-out;
     }
 
     @keyframes twinkle {
       0%, 100% { opacity: 0.2; transform: scale(0.8); }
-      50% { opacity: 1; transform: scale(1.3); }
+      50% { opacity: 0.9; transform: scale(1.2); }
     }
 
-    /* Contenedor Principal */
+    /* CAPA 2: Lluvia de Girasoles (Detrás de la carta) */
+    #flower-container {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .girasol-float {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.85;
+      animation: floatUp 7s linear forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) rotate(0deg) scale(0.6);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      90% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-15vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* CAPA 3: Contenido Principal y Tarjeta Firme */
     .content {
       position: relative;
       z-index: 10;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       padding: 20px;
       text-align: center;
     }
 
-    /* Tarjeta Glassmorphism */
     .card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-card);
       border-radius: 24px;
-      padding: 40px 25px;
-      max-width: 480px;
-      width: 90%;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      animation: fadeIn 1s ease-out;
+      padding: 35px 22px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
     }
 
-    /* Botón Principal */
+    /* Botón Inicial */
     .btn-main {
-      padding: 16px 36px;
-      font-size: 1.2rem;
+      padding: 16px 32px;
+      font-size: 1.15rem;
       font-weight: 600;
-      color: #3e2723;
-      background: linear-gradient(135deg, #ffe082 0%, #ffb300 100%);
+      color: #1e1b4b;
+      background: linear-gradient(135deg, #fde047 0%, #eab308 100%);
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 25px var(--brillo-oro);
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 20px rgba(234, 179, 8, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-main:hover {
-      transform: scale(1.06);
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
+    .btn-main:active {
+      transform: scale(0.97);
     }
 
-    /* Textos Mensaje */
+    /* Textos Fijos y Legibles */
     .title {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(2.3rem, 7vw, 3.5rem);
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
       color: var(--color-amarillo);
-      text-shadow: 0 0 20px var(--brillo-oro);
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(250, 204, 21, 0.3);
     }
 
     .subtitle {
-      font-size: 1.15rem;
-      color: #fffde7;
+      font-size: 1.05rem;
+      color: #f1f5f9;
       font-weight: 400;
       line-height: 1.6;
       margin-bottom: 25px;
     }
 
     .btn-secondary {
-      background: transparent;
+      background: rgba(250, 204, 21, 0.1);
       border: 1px solid var(--color-amarillo);
       color: var(--color-amarillo);
-      padding: 12px 24px;
+      padding: 12px 26px;
       border-radius: 30px;
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background 0.2s ease;
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 224, 130, 0.15);
-      transform: translateY(-2px);
+    .btn-secondary:active {
+      background: rgba(250, 204, 21, 0.25);
     }
 
-    /* Control Flotante de Música */
+    /* Botón de Música Flotante */
     .music-btn {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 100;
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
       color: var(--color-amarillo);
-      width: 48px;
-      height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
 
-    .music-btn:hover {
-      transform: scale(1.1);
-    }
-
-    /* Modal / Carta */
+    /* Modal / Carta desplegable */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(2, 6, 23, 0.85);
       backdrop-filter: blur(8px);
       z-index: 200;
       display: flex;
@@ -173,7 +196,7 @@
       padding: 20px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
     }
 
     .modal-overlay.active {
@@ -182,27 +205,24 @@
     }
 
     .modal-card {
-      background: #1e293b;
-      border: 1px solid var(--glass-border);
-      padding: 30px 25px;
+      background: #0f172a;
+      border: 1px solid var(--border-card);
+      padding: 28px 22px;
       border-radius: 20px;
-      max-width: 440px;
+      max-width: 420px;
+      width: 100%;
       text-align: center;
-      transform: translateY(20px);
-      transition: transform 0.4s ease;
-      max-height: 85vh;
+      max-height: 80vh;
       overflow-y: auto;
-    }
-
-    .modal-overlay.active .modal-card {
-      transform: translateY(0);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
     }
 
     .modal-card p {
       font-size: 0.95rem;
-      color: #cbd5e1;
-      line-height: 1.7;
+      color: #e2e8f0;
+      line-height: 1.75;
       margin-bottom: 16px;
+      text-align: left;
     }
 
     .modal-card p strong {
@@ -210,50 +230,34 @@
       font-weight: 600;
     }
 
-    /* Girasoles y Efectos */
-    .girasol {
-      position: absolute;
-      z-index: 5;
-      pointer-events: none;
-      filter: drop-shadow(0 0 8px var(--brillo-oro));
-      animation: floatUp 6s linear forwards;
-    }
-
-    @keyframes floatUp {
-      0% { transform: translate(0, 110vh) rotate(0deg) scale(0.3); opacity: 0; }
-      15% { opacity: 1; }
-      100% { transform: translate(calc(var(--side-move) * 2), -20vh) rotate(360deg) scale(1.4); opacity: 0; }
-    }
-
-    .burst-flower {
-      position: absolute;
+    /* Efecto al hacer clic en pantalla */
+    .burst-symbol {
+      position: fixed;
       z-index: 50;
       pointer-events: none;
-      animation: burst 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      animation: burstAnim 1s ease-out forwards;
     }
 
-    @keyframes burst {
-      0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 1; }
-      100% { transform: translate(calc(-50% + var(--vx)), calc(-50% + var(--vy))) scale(1.2) rotate(180deg); opacity: 0; }
+    @keyframes burstAnim {
+      0% { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+      100% { transform: translate(calc(-50% + var(--vx)), calc(-50% + var(--vy))) scale(1.1); opacity: 0; }
     }
 
     .hidden { display: none !important; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Botón de Control Audio -->
-  <button id="music-toggle" class="music-btn" title="Reproducir/Pausar música">🎵</button>
+  <!-- Control de Audio -->
+  <button id="music-toggle" class="music-btn" title="Audio">🎵</button>
 
-  <!-- Fondo Estrellado -->
+  <!-- Capa 1: Estrellas -->
   <div class="stars-container" id="starsBox"></div>
 
-  <!-- Contenido -->
+  <!-- Capa 2: Girasoles flotantes -->
+  <div id="flower-container"></div>
+
+  <!-- Capa 3: Contenido Central -->
   <div class="content">
     <div class="card">
       <button id="start-btn" class="btn-main">🌻 Abrir Regalo Galáctico 🌻</button>
@@ -268,10 +272,10 @@
     </div>
   </div>
 
-  <!-- Modal Carta -->
+  <!-- Modal: Carta completa -->
   <div id="modal" class="modal-overlay">
     <div class="modal-card">
-      <h2 style="color: var(--color-amarillo); font-family: 'Dancing Script', cursive; font-size: 2.3rem; margin-bottom: 15px;">Para ti 💛</h2>
+      <h2 style="color: var(--color-amarillo); font-family: 'Dancing Script', cursive; font-size: 2.2rem; margin-bottom: 15px; text-align: center;">Para ti 💛</h2>
       
       <p>
         En el jardín de Dios, la flor más bonita eres tú. Con tus ojitos irradias alegría a quienes te rodean, y es de valientes seguir adelante mientras todo se viene abajo. Por eso estas flores las mereces tú, por ser la mejor mujer que hay.
@@ -285,15 +289,18 @@
         <strong>Te mereces esto y mucho más, porque desde que estás, todo comienza a ser de color. Gracias por estar. 🌻</strong>
       </p>
 
-      <button id="close-modal" class="btn-secondary" style="margin-top: 10px;">Cerrar carta</button>
+      <div style="text-align: center; margin-top: 20px;">
+        <button id="close-modal" class="btn-secondary">Cerrar carta</button>
+      </div>
     </div>
   </div>
 
-  <!-- Reproductores / Iframe de música (Floricienta) -->
-  <div id="video-container" style="position: absolute; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
+  <!-- Contenedor oculto para la música de YouTube -->
+  <div id="video-container" style="position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none;"></div>
 
   <script>
     const starsBox = document.getElementById('starsBox');
+    const flowerContainer = document.getElementById('flower-container');
     const startBtn = document.getElementById('start-btn');
     const message = document.getElementById('message');
     const musicToggle = document.getElementById('music-toggle');
@@ -303,13 +310,14 @@
     const closeModal = document.getElementById('close-modal');
 
     let isPlaying = false;
+    let spawnInterval = null;
 
-    // Crear estrellas de fondo
+    // Crear fondo de estrellas
     function initStars() {
-      for (let i = 0; i < 90; i++) {
+      for (let i = 0; i < 70; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        const size = Math.random() * 2.5 + 1 + 'px';
+        const size = Math.random() * 2 + 1 + 'px';
         star.style.width = size;
         star.style.height = size;
         star.style.left = Math.random() * 100 + 'vw';
@@ -320,23 +328,41 @@
     }
     initStars();
 
-    // Evento Principal
+    // Evento al abrir el regalo
     startBtn.addEventListener('click', (e) => {
       startBtn.classList.add('hidden');
       message.classList.remove('hidden');
       
       toggleMusic(true);
-      setInterval(spawnSunflower, 450);
 
-      // Explosión inicial de flores
-      burstFlowers(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
+      // Iniciar lluvia constante de girasoles
+      spawnSunflower();
+      spawnInterval = setInterval(spawnSunflower, 500);
+
+      // Efecto de ráfaga al presionar
+      triggerBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
     });
 
-    // Control de música
+    // Crear un girasol flotante continuo
+    function spawnSunflower() {
+      const sunflower = document.createElement('div');
+      sunflower.className = 'girasol-float';
+      sunflower.innerHTML = Math.random() > 0.2 ? '🌻' : '✨';
+      sunflower.style.left = Math.random() * 92 + 'vw';
+      sunflower.style.fontSize = (Math.random() * 14 + 24) + 'px';
+      
+      flowerContainer.appendChild(sunflower);
+
+      setTimeout(() => {
+        sunflower.remove();
+      }, 7000);
+    }
+
+    // Control de audio
     function toggleMusic(play) {
       if (play && !isPlaying) {
         videoContainer.innerHTML = `
-          <iframe id="yt-player" width="100" height="100" 
+          <iframe width="100" height="100" 
             src="https://www.youtube.com/embed/Sng5mn65jHw?autoplay=1&enablejsapi=1" 
             allow="autoplay; encrypted-media">
           </iframe>`;
@@ -353,52 +379,34 @@
       toggleMusic(!isPlaying);
     });
 
-    // Lluvia flotante constante
-    function spawnSunflower() {
-      const sunflower = document.createElement('div');
-      sunflower.className = 'girasol';
-      sunflower.innerHTML = Math.random() > 0.2 ? '🌻' : '✨';
-      sunflower.style.left = Math.random() * 90 + 'vw';
-      sunflower.style.setProperty('--side-move', (Math.random() * 100 - 50) + 'px');
-      sunflower.style.fontSize = (Math.random() * 18 + 26) + 'px';
-      document.body.appendChild(sunflower);
-
-      setTimeout(() => sunflower.remove(), 6000);
-    }
-
-    // Efecto interactivo al hacer clic
+    // Tocar la pantalla genera destellos de flores
     document.addEventListener('click', (e) => {
       if (!startBtn.classList.contains('hidden')) return;
       if (e.target.tagName === 'BUTTON' || e.target.closest('.modal-card')) return;
-      burstFlowers(e.clientX, e.clientY);
+      triggerBurst(e.clientX, e.clientY);
     });
 
-    function burstFlowers(x, y) {
-      const count = 12;
-      const symbols = ['🌻', '✨', '💛', '🌟'];
-      
-      for (let i = 0; i < count; i++) {
+    function triggerBurst(x, y) {
+      const items = ['🌻', '✨', '💛'];
+      for (let i = 0; i < 10; i++) {
         const el = document.createElement('div');
-        el.className = 'burst-flower';
-        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        el.className = 'burst-symbol';
+        el.textContent = items[Math.floor(Math.random() * items.length)];
         el.style.left = x + 'px';
         el.style.top = y + 'px';
-        el.style.fontSize = (Math.random() * 15 + 20) + 'px';
+        el.style.fontSize = (Math.random() * 12 + 18) + 'px';
 
-        const angle = (Math.PI * 2 / count) * i;
-        const dist = Math.random() * 100 + 50;
-        const vx = Math.cos(angle) * dist + 'px';
-        const vy = Math.sin(angle) * dist + 'px';
-
-        el.style.setProperty('--vx', vx);
-        el.style.setProperty('--vy', vy);
+        const angle = (Math.PI * 2 / 10) * i;
+        const dist = Math.random() * 80 + 40;
+        el.style.setProperty('--vx', Math.cos(angle) * dist + 'px');
+        el.style.setProperty('--vy', Math.sin(angle) * dist + 'px');
 
         document.body.appendChild(el);
-        setTimeout(() => el.remove(), 1200);
+        setTimeout(() => el.remove(), 1000);
       }
     }
 
-    // Ventana Modal (Carta)
+    // Abrir / Cerrar carta
     letterBtn.addEventListener('click', () => modal.classList.add('active'));
     closeModal.addEventListener('click', () => modal.classList.remove('active'));
     modal.addEventListener('click', (e) => {
